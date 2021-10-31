@@ -23,14 +23,10 @@ export default function AppRouter() {
             <Difficulty />
           </Route>
           <Route path="/">
-            <Default />
+            <Player />
           </Route>
         </Switch>
       </div>
     </Router>
   );
-}
-
-function Default() {
-  return <h2>Default</h2>;
 }

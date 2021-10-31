@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setName } from "../../redux/playerSlice"
 import { useHistory } from "react-router-dom";
+import { ApiCall } from '../../api/twitter'
 
 export default function Player() {
     return <NameForm />;
@@ -14,6 +15,7 @@ function NameForm() {
   const history = useHistory();
   
   const handleSubmit = () => {
+    ApiCall()
     history.push("/group"); 
   }
 
