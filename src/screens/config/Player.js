@@ -1,17 +1,22 @@
 
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setName } from "../../redux/playerSlice"
+import { useHistory } from "react-router-dom";
 
 export default function Player() {
     return <NameForm />;
   }
 
 function NameForm() {
-  const [name, setName] = useState("");
+  const playerName = useSelector((state) => state.playerName.value)
+  const dispatch = useDispatch()
+  const history = useHistory();
   
-  const handleSubmit = (evt) => {
-      evt.preventDefault();
-      alert(`Submitting Name ${name}`)
+  const handleSubmit = () => {
+    history.push("/group"); 
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -19,8 +24,8 @@ function NameForm() {
         <input
           placeholder="@twitter handle"
           type="text"
-          value={name}
-          onChange={e => setName(e.target.value)}
+          value={playerName}
+          onChange={e => dispatch(setName(e.target.value))}
         />
       </label>
       <input type="submit" value="Submit" />
