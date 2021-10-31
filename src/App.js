@@ -5,9 +5,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Header</p>
+        <p>How well do you know your people?</p>
       </header>
-      <AppRouter/>
+      <div className="App-screen">
+        <AppRouter/>
+      </div>
     </div>
   );
 }

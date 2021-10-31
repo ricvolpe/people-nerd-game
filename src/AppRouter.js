@@ -4,23 +4,26 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import Player from "./screens/Player";
+import Player from "./screens/config/Player";
+import Group from "./screens/config/Group";
+import Difficulty from "./screens/config/Difficulty";
 
 export default function AppRouter() {
   return (
     <Router>
       <div>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/player">
             <Player />
           </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/group">
+            <Group />
+          </Route>
+          <Route path="/difficulty">
+            <Difficulty />
           </Route>
           <Route path="/">
-            <Home />
+            <Default />
           </Route>
         </Switch>
       </div>
@@ -28,14 +31,6 @@ export default function AppRouter() {
   );
 }
 
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
+function Default() {
+  return <h2>Default</h2>;
 }
