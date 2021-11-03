@@ -2,8 +2,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setName } from "../../redux/playerSlice"
+import { setIds } from "../../redux/friendsSlice"
 import { useHistory } from "react-router-dom";
-import { ApiCall } from '../../api/twitter'
+import { getFriendsIds } from '../../api/twitter'
 
 export default function Player() {
     return <NameForm />;
@@ -14,13 +15,18 @@ function NameForm() {
   const dispatch = useDispatch()
   const history = useHistory();
   
-  const handleSubmit = () => {
-    ApiCall()
-    history.push("/group"); 
+  async function handleSubmit(screenName) {
+    const resp = await getFriendsIds(screenName)
+    if (resp['statusCode'] === 200) {
+      dispatch(setIds(resp.data.ids))
+    }
+    else {
+      alert('Not working!')
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <label>
         Play as
         <input
@@ -30,7 +36,7 @@ function NameForm() {
           onChange={e => dispatch(setName(e.target.value))}
         />
       </label>
-      <input type="submit" value="Submit" />
-    </form>
+      <button onClick={() => {handleSubmit(playerName)}} >Submit</button>
+      </div>
   );
 }

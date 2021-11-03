@@ -5,7 +5,6 @@ import {
   Route,
 } from "react-router-dom";
 import Player from "./screens/config/Player";
-import Group from "./screens/config/Group";
 import Difficulty from "./screens/config/Difficulty";
 
 export default function AppRouter() {
@@ -15,9 +14,6 @@ export default function AppRouter() {
         <Switch>
           <Route path="/player">
             <Player />
-          </Route>
-          <Route path="/group">
-            <Group />
           </Route>
           <Route path="/difficulty">
             <Difficulty />

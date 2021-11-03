@@ -1,5 +1,5 @@
-export function ApiCall() {
-    fetch("http://localhost:5000/api")
-        .then(res => res.json())
-        .then(res => console.log(res[0]));
+export async function getFriendsIds(screenName) {
+    const response = await fetch(`api/friends/${screenName}`)
+    const data = response.ok? await response.json() : {'statusCode': response.status}
+    return data
 }

@@ -30,12 +30,12 @@ if (cluster.isMaster) {
   app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
   // Answer API requests.
-  app.get('/api/groups/:screen_name', async function (req, res) {
+  app.get('/api/friends/:screen_name', async function (req, res) {
     res.set('Content-Type', 'application/json');
     const screenName = req.params.screen_name
     try {
       const { statusCode, data } = await twitterApi.getFriendsByScreenName(screenName)
-      res.send({'statusCode': statusCode, 'data': data})
+      res.json({'statusCode': statusCode, 'data': data})
     } catch(error) {
       res.send(error)
     }
