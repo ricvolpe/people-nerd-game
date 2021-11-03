@@ -1,4 +1,5 @@
-import './App.css';
+import './style/App.scss';
+import './style/Player.scss';
 import AppRouter from './AppRouter'
 
 function App() {

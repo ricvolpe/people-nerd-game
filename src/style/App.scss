@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Zen+Kaku+Gothic+New:wght@900&family=Zen+Kurenaido&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  background-color: #FFE066;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height:100vh;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #F25F5C;
+  margin: 0;
+}
+
+.App-screen {
+  margin: auto;
+}
+
+.MainText {
+  color: #F25F5C;
+  display: inline;
+  margin-right: 8px;
+  font-size: 2em;
+}
+
+/***************
+ * Right Arrow
+ ***************/
+
+.arrow-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  $size: 1.5em;
+  $width: 2.5px;
+
+  cursor: pointer;
+  display: block;
+  width: $size / 1.414;
+  height: $size / 1.414 * 2;
+  position: relative;
+  
+  & span,
+  &:before,
+  &:after {
+    background: #F25F5C;
+    content: '';
+    display: block;
+    width: $size;
+    height: $width;
+    position: absolute;
+    top: calc(50% - (#{$width} / 2));
+  }
+    
+  &:before {
+    transform: rotate(-45deg);
+  }
+  &:after {
+    transform: rotate(45deg);
+  }
+  
+  & span {
+    width: 0;
+  }
+  &:hover span {
+    width: $size * 1.414;
+  }
+  
+  @each $direction in 'left' 'right' {
+    &.arrow--#{$direction} {
+      & span,
+      &:before,
+      &:after {
+        #{$direction}: 0;
+        transform-origin: #{$direction} 50%;
+      }
+
+      &:before,
+      &:after {
+        transition: #{$direction} 0.3s 0.05s;
+      }
+
+      & span {
+        transition: width 0.3s, #{$direction} 0.3s 0.05s;
+      }
+
+      &:hover {
+        & span,
+        &:before,
+        &:after {
+          #{$direction}: $size / 1.414 * -1;
+        }
+      }
+    }
+  }
+}

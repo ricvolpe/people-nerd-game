@@ -26,17 +26,22 @@ function NameForm() {
   }
 
   return (
-    <div>
+    <div className='PlayAs'>
       <label>
-        Play as
+        <div className='MainText'>Play as</div>
         <input
-          placeholder="@twitter handle"
+          className='HandleInput'
+          placeholder="@twitterHandle"
           type="text"
           value={playerName}
-          onChange={e => dispatch(setName(e.target.value))}
+          onChange={e => dispatch(setName(e.target.value.replace('@','')))}
         />
       </label>
-      <button onClick={() => {handleSubmit(playerName)}} >Submit</button>
+      <div onClick={() => {handleSubmit(playerName)}} className="arrow-wrapper">
+        <div className="arrow arrow--right">
+          <span></span>
+        </div>
+      </div>
       </div>
   );
 }

@@ -1,0 +1,33 @@
+.PlayAs {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.HandleInput {
+    background-color: transparent;
+    border: none;
+    color: #70C1B3;
+    font-size: 2em;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    box-shadow: 0px 2.5px 0px 0px #70C1B3;
+    -webkit-transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+    width: 230px;
+    margin-right: 8px;
+}
+
+.HandleInput::placeholder {
+    color: #70C1B3;
+    opacity: 0.8;
+}
+
+.HandleInput:focus {
+    color: #F95738;
+    outline: none;
+    box-shadow: 0px 2.5px 0px 0px #F95738;
+}
+
+.HandleInput:focus::placeholder {
+    color: transparent;
+  }
