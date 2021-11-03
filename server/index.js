@@ -34,8 +34,8 @@ if (cluster.isMaster) {
     res.set('Content-Type', 'application/json');
     const screenName = req.params.screen_name
     try {
-      const { resp, data } = await twitterApi.getFriendsByScreenName(screenName)
-      res.send({'response': resp, 'json': data})
+      const { statusCode, data } = await twitterApi.getFriendsByScreenName(screenName)
+      res.send({'statusCode': statusCode, 'data': data})
     } catch(error) {
       res.send(error)
     }

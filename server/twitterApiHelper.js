@@ -12,11 +12,11 @@ const T = new twit({
 async function getFriendsByScreenName(screenName) {
     return new Promise ((resolve, reject) => {
         T.get('friends/ids', { screen_name: screenName }, function(err, data, resp) {
-            // console.log(res.headers['x-rate-limit-remaining'])
+            const statusCode = resp.statusCode
             if (err) {
-                resolve({resp, err})
+                resolve({statusCode, err})
             } else {
-                resolve({resp, data})
+                resolve({statusCode, data})
             }
         })
     })
