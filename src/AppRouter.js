@@ -4,8 +4,9 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import Player from "./screens/config/Player";
-import Difficulty from "./screens/config/Difficulty";
+import Player from "./screens/Player";
+import Difficulty from "./screens/Difficulty";
+import Question from "./screens/Question";
 
 export default function AppRouter() {
   return (
@@ -17,6 +18,9 @@ export default function AppRouter() {
           </Route>
           <Route path="/difficulty">
             <Difficulty />
+          </Route>
+          <Route path="/question/:number">
+            <Question />
           </Route>
           <Route path="/">
             <Player />

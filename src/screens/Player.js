@@ -1,16 +1,13 @@
 
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setName } from "../../redux/playerSlice"
-import { setIds } from "../../redux/friendsSlice"
+import { setName } from "../redux/playerSlice"
+import { setIds } from "../redux/friendsSlice"
 import { useHistory } from "react-router-dom";
-import { getFriendsIds } from '../../api/twitter'
+import { getFriendsIds } from '../api/twitter'
+import ArrowNext from '../components/ArrowNetx'
 
 export default function Player() {
-    return <NameForm />;
-  }
-
-function NameForm() {
   const playerName = useSelector((state) => state.playerName.value)
   const dispatch = useDispatch()
   const history = useHistory();
@@ -38,10 +35,8 @@ function NameForm() {
         />
       </label>
       {playerName? (
-      <div onClick={() => {handleSubmit(playerName)}} className="arrow-wrapper">
-        <div className="arrow arrow--right">
-          <span></span>
-        </div>
+      <div onClick={() => {handleSubmit(playerName)}}>
+        <ArrowNext />
       </div>)
       : null}
       </div>
