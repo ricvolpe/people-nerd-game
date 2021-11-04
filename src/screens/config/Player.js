@@ -37,11 +37,13 @@ function NameForm() {
           onChange={e => dispatch(setName(e.target.value.replace('@','')))}
         />
       </label>
+      {playerName? (
       <div onClick={() => {handleSubmit(playerName)}} className="arrow-wrapper">
         <div className="arrow arrow--right">
           <span></span>
         </div>
-      </div>
+      </div>)
+      : null}
       </div>
   );
 }
