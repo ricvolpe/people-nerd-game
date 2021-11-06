@@ -9,6 +9,7 @@ const T = new twit({
     timeout_ms:           1000,  // optional HTTP request timeout to apply to all requests.
     strictSSL:            true,     // optional - requires SSL certificates to be valid.
 })
+
 async function getFriendsByScreenName(screenName) {
     return new Promise ((resolve, reject) => {
         T.get('friends/ids', { screen_name: screenName }, function(err, data, resp) {
@@ -22,6 +23,20 @@ async function getFriendsByScreenName(screenName) {
     })
 }
 
+async function getUserTimeline(userId) {
+    return new Promise ((resolve, reject) => {
+        T.get('statuses/user_timeline', { user_id: userId, count: 200 }, function(err, data, resp) {
+            const statusCode = resp.statusCode
+            if (err) {
+                resolve({statusCode, err})
+            } else {
+                resolve({statusCode, data})
+            }
+        })
+    })
+}
+
 module.exports = {
-    getFriendsByScreenName: getFriendsByScreenName
+    getFriendsByScreenName: getFriendsByScreenName,
+    getUserTimeline: getUserTimeline
 }

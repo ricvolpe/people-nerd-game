@@ -29,12 +29,22 @@ if (cluster.isMaster) {
   // Priority serve any static files.
   app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
-  // Answer API requests.
   app.get('/api/friends/:screen_name', async function (req, res) {
     res.set('Content-Type', 'application/json');
     const screenName = req.params.screen_name
     try {
       const { statusCode, data } = await twitterApi.getFriendsByScreenName(screenName)
+      res.json({'statusCode': statusCode, 'data': data})
+    } catch(error) {
+      res.send(error)
+    }
+  });
+
+  app.get('/api/timeline/:user_id', async function (req, res) {
+    res.set('Content-Type', 'application/json');
+    const userId = req.params.user_id
+    try {
+      const { statusCode, data } = await twitterApi.getUserTimeline(userId)
       res.json({'statusCode': statusCode, 'data': data})
     } catch(error) {
       res.send(error)

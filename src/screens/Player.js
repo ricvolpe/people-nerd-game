@@ -5,7 +5,6 @@ import { setName } from "../redux/playerSlice"
 import { setIds } from "../redux/friendsSlice"
 import { useHistory } from "react-router-dom";
 import { getFriendsIds } from '../api/twitter'
-import ArrowNext from '../components/ArrowNetx'
 
 export default function Player() {
   const playerName = useSelector((state) => state.playerName.value)
@@ -16,6 +15,7 @@ export default function Player() {
     const resp = await getFriendsIds(screenName)
     if (resp['statusCode'] === 200) {
       dispatch(setIds(resp.data.ids))
+      history.push('friendsboard')
     }
     else {
       alert('Not working!')
@@ -34,11 +34,9 @@ export default function Player() {
           onChange={e => dispatch(setName(e.target.value.replace('@','')))}
         />
       </label>
-      {playerName? (
-      <div onClick={() => {handleSubmit(playerName)}}>
-        <ArrowNext />
-      </div>)
-      : null}
+      <button onClick={() => {handleSubmit(playerName)}}>
+        Submit
+      </button>
       </div>
   );
 }

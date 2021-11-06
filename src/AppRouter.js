@@ -7,6 +7,7 @@ import {
 import Player from "./screens/Player";
 import Difficulty from "./screens/Difficulty";
 import Question from "./screens/Question";
+import Friendboard from "./screens/Friendboard";
 
 export default function AppRouter() {
   return (
@@ -15,6 +16,9 @@ export default function AppRouter() {
         <Switch>
           <Route path="/player">
             <Player />
+          </Route>
+          <Route path="/friendsboard">
+            <Friendboard />
           </Route>
           <Route path="/difficulty">
             <Difficulty />

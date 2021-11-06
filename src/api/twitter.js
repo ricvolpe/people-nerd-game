@@ -6,3 +6,12 @@ export async function getFriendsIds(screenName) {
         return ({'statusCode': response.status})
     }
 }
+
+export async function getFriendTimeline(userId) {
+    const response = await fetch(`api/timeline/${userId}`)
+    if (response.ok) {
+        return await response.json() 
+    } else {
+        return ({'statusCode': response.status})
+    }
+}
