@@ -1,16 +1,16 @@
 
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setName } from "../redux/playerSlice"
+import { setName } from "../redux/userSlice"
 import { setIds } from "../redux/friendsSlice"
 import { useHistory } from "react-router-dom";
 import { getFriendsIds } from '../api/twitter'
 
-export default function Player() {
-  const playerName = useSelector((state) => state.playerName.value)
+export default function User() {
+  const userName = useSelector((state) => state.userName.value)
   const dispatch = useDispatch()
   const history = useHistory();
-  
+
   async function handleSubmit(screenName) {
     const resp = await getFriendsIds(screenName)
     if (resp['statusCode'] === 200) {
@@ -23,20 +23,20 @@ export default function Player() {
   }
 
   return (
-    <div className='PlayAs'>
+    <div className='OpenAs'>
       <label>
-        <div className='MainText'>Play as</div>
+        <div className='MainText'>Open as</div>
         <input
           className='HandleInput'
           placeholder="@twitterHandle"
           type="text"
-          value={playerName}
-          onChange={e => dispatch(setName(e.target.value.replace('@','')))}
+          value={userName}
+          onChange={e => dispatch(setName(e.target.value.replace('@', '')))}
         />
       </label>
-      <button onClick={() => {handleSubmit(playerName)}}>
+      <button onClick={() => { handleSubmit(userName) }}>
         Submit
       </button>
-      </div>
+    </div>
   );
 }

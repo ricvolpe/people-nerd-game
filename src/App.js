@@ -1,15 +1,15 @@
 import './style/App.scss';
-import './style/Player.scss';
+import './style/User.scss';
 import AppRouter from './AppRouter'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>🫂 How well do you know your people?</p>
+        <p>🫂 Twitter Friendsboard</p>
       </header>
       <div className="App-screen">
-        <AppRouter/>
+        <AppRouter />
       </div>
     </div>
   );
