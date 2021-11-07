@@ -1,12 +1,29 @@
 import Friend from "../components/Friend"
+import { getFriendTimeline } from '../api/twitter'
 import { useSelector } from "react-redux";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Flex, Box } from 'reflexbox'
 import { Tweet } from 'react-twitter-widgets'
 
 export default function Friendsboard() {
-  const [tweetId, setTweetId] = useState('1329093575649370113')
-  var friendsIds = useSelector((state) => state.friendsIds.value)
+  const [tweetId, setTweetId] = useState('1446566666335313920')
+  const [friendTimeline, setFriendTimeline] = useState(null)
+  const [friendId, setFriendId] = useState(null)
+  const friendsIds = useSelector((state) => state.friendsIds.value)
+
+  useEffect(() => {
+      async function getTimeline(id) {
+        const resp = await getFriendTimeline(id)
+        if (resp['statusCode'] === 200) {
+          setFriendTimeline(resp.data)
+        }
+        else {
+          console.log('Could not fetch user', id, 'HTTP status code', resp.statusCode)
+        }
+      }
+      getTimeline(friendId)
+    }, [friendId])
+
   const renderTweet = (tweetId) => {
     setTweetId(tweetId)
   }
@@ -19,7 +36,7 @@ export default function Friendsboard() {
         </Box>
         <Box width={[10 / 10, 3 / 10, 4 / 10, 6 / 10, 8 / 10]} p={12}>
           <Flex className="grid" flexWrap='wrap'>
-          {shuffle(friendsIds).slice(1, 10).map(id => {
+          {shuffle(friendsIds).slice(1, 50).map(id => {
             return (
                 <Friend key={id} friendId={id} />
               )
