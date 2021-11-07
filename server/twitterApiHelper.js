@@ -14,6 +14,11 @@ async function getFriendsByScreenName(screenName) {
     return new Promise ((resolve, reject) => {
         T.get('friends/ids', { screen_name: screenName }, function(err, data, resp) {
             const statusCode = resp.statusCode
+            if (statusCode === 429) {
+                console.log('Rate Limited!!')
+                console.log('Consumed requests:', resp.headers['x-rate-limit-limit'])
+                console.log('Resets at:', new Date(parseInt(resp.headers['x-rate-limit-reset']) * 1000))
+            }
             if (err) {
                 resolve({statusCode, err})
             } else {
@@ -25,8 +30,13 @@ async function getFriendsByScreenName(screenName) {
 
 async function getUserTimeline(userId) {
     return new Promise ((resolve, reject) => {
-        T.get('statuses/user_timeline', { user_id: userId, count: 200 }, function(err, data, resp) {
+        T.get('statuses/user_timeline', { user_id: userId, count: 200, include_rts: false }, function(err, data, resp) {
             const statusCode = resp.statusCode
+            if (statusCode === 429) {
+                console.log('Rate Limited!!')
+                console.log('Consumed requests:', resp.headers['x-rate-limit-limit'])
+                console.log('Resets at:', new Date(parseInt(resp.headers['x-rate-limit-reset']) * 1000))
+            }
             if (err) {
                 resolve({statusCode, err})
             } else {

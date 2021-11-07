@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import User from "./screens/User";
-import Friendboard from "./screens/Friendboard";
+import Friendsboard from "./screens/Friendsboard";
 
 export default function AppRouter() {
   return (
@@ -16,7 +16,7 @@ export default function AppRouter() {
             <User />
           </Route>
           <Route path="/friendsboard">
-            <Friendboard />
+            <Friendsboard />
           </Route>
           <Route path="/">
             <User />
