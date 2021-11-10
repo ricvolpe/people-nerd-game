@@ -1,5 +1,7 @@
+const API_SERVER = 'http://localhost:5000/api'
+
 export async function getFriendsIds(screenName) {
-    const response = await fetch(`api/friends/${screenName}`)
+    const response = await fetch(`${API_SERVER}/friends/${screenName}`)
     if (response.ok) {
         return await response.json() 
     } else {
@@ -8,9 +10,9 @@ export async function getFriendsIds(screenName) {
 }
 
 export async function getFriendTimeline(userId) {
-    const response = await fetch(`api/timeline/${userId}`)
+    const response = await fetch(`${API_SERVER}/timeline/${userId}`)
     if (response.ok) {
-        return await response.json() 
+        return await response.json()
     } else {
         return ({'statusCode': response.status})
     }

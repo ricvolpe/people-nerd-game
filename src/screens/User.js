@@ -15,7 +15,7 @@ export default function User() {
     const resp = await getFriendsIds(screenName)
     if (resp['statusCode'] === 200) {
       dispatch(setIds(resp.data.ids))
-      history.push('friendsboard')
+      history.push('question/1')
     }
     else {
       alert('Not working!')
