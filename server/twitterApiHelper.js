@@ -46,7 +46,26 @@ async function getUserTimeline(userId) {
     })
 }
 
+async function userLookup(userID) {
+    return new Promise ((resolve, reject) => {
+        T.get('users/lookup', { user_id: userID, include_entities: false }, function(err, data, resp) {
+            const statusCode = resp.statusCode
+            if (statusCode === 429) {
+                console.log('Rate Limited!!')
+                console.log('Consumed requests:', resp.headers['x-rate-limit-limit'])
+                console.log('Resets at:', new Date(parseInt(resp.headers['x-rate-limit-reset']) * 1000))
+            }
+            if (err) {
+                resolve({statusCode, err})
+            } else {
+                resolve({statusCode, data})
+            }
+        })
+    })
+}
+
 module.exports = {
     getFriendsByScreenName: getFriendsByScreenName,
-    getUserTimeline: getUserTimeline
+    getUserTimeline: getUserTimeline,
+    userLookup: userLookup
 }

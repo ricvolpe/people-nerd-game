@@ -17,3 +17,12 @@ export async function getFriendTimeline(userId) {
         return ({'statusCode': response.status})
     }
 }
+
+export async function getUser(userId) {
+    const response = await fetch(`${API_SERVER}/user/${userId}`)
+    if (response.ok) {
+        return await response.json()
+    } else {
+        return ({'statusCode': response.status})
+    }
+}

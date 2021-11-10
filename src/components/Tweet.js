@@ -20,7 +20,7 @@ export default function Tweet(props) {
           dispatch(setTweetAuthorID(possibleId))
         }
         else {
-          console.log('Could not fetch user', possibleId, 'HTTP status code', resp.statusCode)
+          console.log('Could not fetch user for tweet', possibleId, 'HTTP status code', resp.statusCode)
           getTimeline(getPossibleTweetAuthorID(friendsIds))
         }
       }

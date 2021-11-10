@@ -51,6 +51,17 @@ if (cluster.isMaster) {
     }
   });
 
+  app.get('/api/user/:user_id', async function (req, res) {
+    res.set('Content-Type', 'application/json');
+    const userId = req.params.user_id
+    try {
+      const { statusCode, data } = await twitterApi.userLookup(userId)
+      res.json({'statusCode': statusCode, 'data': data})
+    } catch(error) {
+      res.send(error)
+    }
+  });
+
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../build', 'index.html'));
