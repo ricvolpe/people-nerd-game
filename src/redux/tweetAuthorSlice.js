@@ -5,15 +5,15 @@ const initialState = {
 }
 
 export const tweetAuthorSlice = createSlice({
-  name: 'tweetAuthorID',
+  name: 'tweetAuthor',
   initialState,
   reducers: {
-    setTweetAuthorID: (state, action) => {
+    setTweetAuthor: (state, action) => {
       state.value = action.payload
     },
   },
 })
 
-export const { setTweetAuthorID } = tweetAuthorSlice.actions
+export const { setTweetAuthor } = tweetAuthorSlice.actions
 
 export default tweetAuthorSlice.reducer

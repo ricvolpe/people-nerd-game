@@ -2,11 +2,15 @@ import { getUser } from '../api/twitter'
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import { setAnswerIDs } from "../redux/answerOptionsSlice"
+import { Box, Flex } from 'reflexbox'
+import { useHistory } from "react-router-dom";
 
-export default function Answers() {
+export default function Answers(props) {
     const dispatch = useDispatch()
     const friendsIds = useSelector((state) => state.friendsIds.value)
     const [users, setUsers] = useState(null)
+    const [answer, giveAnswer] = useState(null)
+    const history = useHistory();
 
     useEffect(() => {
       async function getAnswers(friendsIds) {
@@ -18,7 +22,7 @@ export default function Answers() {
         var answerUsers = []
         var unfetchableUsers = []
         while (answerUserIDs.length < 4) {
-          const possibleID = shuffledFriendsIds[Math.floor(Math.random() * 10)]
+          const possibleID = shuffledFriendsIds[Math.floor(Math.random() * friendsIds.length)]
           if (possibleID && !answerUserIDs.includes(possibleID) && !unfetchableUsers.includes(possibleID)) {
             const resp = await getUser(possibleID)
             if (resp['statusCode'] === 200) {
@@ -29,30 +33,53 @@ export default function Answers() {
               unfetchableUsers = [...unfetchableUsers, possibleID]
             }
           }
-        }
+        } 
         dispatch(setAnswerIDs(answerUserIDs))
         setUsers(answerUsers)
       }
+      giveAnswer(null)
       getAnswers(getAnswers(friendsIds))
-    }, [friendsIds, dispatch])
-
-    if (users?.length > 0) {
+    }, [friendsIds, dispatch, history.location])
+    
+    const { tweetAuthor } = props;
+    if (users?.length > 0 && tweetAuthor) {
+      const uniqueUsers = users.filter(u => u[0].id !== tweetAuthor.id).slice(0, 3)
+      const positionDecider = (uniqueUsers[0][0].id + tweetAuthor.id) % 4
+      const fullAnswers = [...uniqueUsers.slice(0, positionDecider), [tweetAuthor], ...uniqueUsers.slice(positionDecider)]
       return (
-        <div>
-          {users.map(u => {
+        <Flex className="grid" flexWrap='wrap' sx={{marginTop: '100px', justifyContent: 'center'}}>
+          {fullAnswers.map(u => {
             return (
-              <p key={u[0].id}>
-                {u[0].screen_name}
-              </p>
+              <Box 
+                key={u[0].id}
+                width={'100px'} height={'100px'} 
+                onClick={() => giveAnswer(u[0].id)}
+                sx={{
+                  backgroundColor: answer !== null? (u[0].id === tweetAuthor.id? 'green': 'red') : 'white',
+                  justifyContent: 'center', 
+                  cursor: 'pointer',
+                  marginLeft: '30px'}}
+                >
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}>
+                {u[0].profile_image_url_https? <img alt={`Avatar of Twitter user ${u[0].screen_name}`} className='AnswerAvatar' src={u[0].profile_image_url_https.replace('_normal', '_bigger')} /> : null}
+                </Box>
+                <Box>
+                  <p className='AnswerName'>{u[0].name}</p>  
+                </Box>
+              </Box>
             )
           })}
-        </div>
+        </Flex>
       )
     } else {
       return null
     }
-
 }
+
 
 function shuffle(inputArray) {
   var array = [...inputArray]

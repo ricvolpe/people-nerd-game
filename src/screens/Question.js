@@ -3,10 +3,12 @@ import { useSpring, animated } from 'react-spring'
 import { useSelector } from "react-redux";
 import Tweet from "../components/Tweet";
 import Answers from "../components/Answers";
+import { useHistory } from "react-router-dom";
 
 export default function Question() {
     const { number } = useParams();
-    const tweetAuthorID = useSelector((state) => state.tweetAuthorID.value)
+    const tweetAuthor = useSelector((state) => state.tweetAuthor.value)
+    const history = useHistory();
     
     const titleStyle = useSpring({ 
         from: {marginTop: '-400px', opacity: 0}, 
@@ -18,9 +20,11 @@ export default function Question() {
             <animated.div style={titleStyle}>
                 <h2>Here's your question number {number} buddy!</h2>
             </animated.div>
-            {tweetAuthorID}
             <Tweet />
-            <Answers />
+            <Answers tweetAuthor={tweetAuthor} />
+            <button onClick={() => {history.push(`/question/${parseInt(number)+1}`)}}>
+                Next
+            </button>   
         </div>
     )
 }

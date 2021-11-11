@@ -38,6 +38,7 @@ async function getUserTimeline(userId) {
                 console.log('Resets at:', new Date(parseInt(resp.headers['x-rate-limit-reset']) * 1000))
             }
             if (err) {
+                console.log(err)
                 resolve({statusCode, err})
             } else {
                 resolve({statusCode, data})

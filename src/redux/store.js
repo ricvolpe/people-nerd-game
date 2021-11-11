@@ -8,7 +8,7 @@ export const store = configureStore({
   reducer: {
     userName: userReducer,
     friendsIds: friendsSlice,
-    tweetAuthorID: tweetAuthorSlice,
+    tweetAuthor: tweetAuthorSlice,
     answerUserIDs: answerOptionsSlice
   },
 })
