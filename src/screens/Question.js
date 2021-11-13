@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 export default function Question() {
     const { number } = useParams();
     const tweetAuthor = useSelector((state) => state.tweetAuthor.value)
+    const score = useSelector((state) => state.score.value)
     const history = useHistory();
     
     const titleStyle = useSpring({ 
@@ -24,7 +25,10 @@ export default function Question() {
             <Answers tweetAuthor={tweetAuthor} />
             <button onClick={() => {history.push(`/question/${parseInt(number)+1}`)}}>
                 Next
-            </button>   
+            </button>
+            <div>
+                Score: {score}
+            </div>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import { getUser } from '../api/twitter'
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import { setAnswerIDs } from "../redux/answerOptionsSlice"
+import { increaseScore } from '../redux/scoreSlice';
 import { Box, Flex } from 'reflexbox'
 import { useHistory } from "react-router-dom";
 
@@ -42,6 +43,16 @@ export default function Answers(props) {
     }, [friendsIds, dispatch, history.location])
     
     const { tweetAuthor } = props;
+
+    const answerQuestion = (selectedUserID) => {
+      if (answer === null) {
+        giveAnswer(selectedUserID)
+        if (selectedUserID === tweetAuthor.id) {
+          dispatch(increaseScore(1))
+        } 
+      }
+    }
+
     if (users?.length > 0 && tweetAuthor) {
       const uniqueUsers = users.filter(u => u[0].id !== tweetAuthor.id).slice(0, 3)
       const positionDecider = (uniqueUsers[0][0].id + tweetAuthor.id) % 4
@@ -53,7 +64,7 @@ export default function Answers(props) {
               <Box 
                 key={u[0].id}
                 width={'100px'} height={'100px'} 
-                onClick={() => giveAnswer(u[0].id)}
+                onClick={() => answerQuestion(u[0].id)}
                 sx={{
                   backgroundColor: answer !== null? (u[0].id === tweetAuthor.id? 'green': 'red') : 'white',
                   justifyContent: 'center', 

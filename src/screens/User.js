@@ -25,7 +25,7 @@ export default function User() {
   return (
     <div className='OpenAs'>
       <label>
-        <div className='MainText'>Open as</div>
+        <div className='MainText'>Play as</div>
         <input
           className='HandleInput'
           placeholder="@twitterHandle"
