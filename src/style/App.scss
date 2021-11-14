@@ -1,16 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Zen+Kaku+Gothic+New:wght@900&family=Zen+Kurenaido&display=swap');
 
-// current palette: https://coolors.co/ff5e5b-d8d8d8-ffffea-00cecb-ffed66
-
 body {
-  margin: 0;
-  font-family: 'Zen Kaku Gothic New', sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .App {
-  background-color: #FFFFEA;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -21,21 +15,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: 2em;
-  color: #00CECB;
-  margin: 0;
 }
 
 .App-screen {
   margin: auto;
-}
-
-.MainText {
-  color: #00CECB;
-  display: inline;
-  margin-right: 8px;
-  font-size: 2em;
 }
 
 .AnswerAvatar {

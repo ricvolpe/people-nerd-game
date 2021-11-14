@@ -1,10 +1,10 @@
-
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { setName } from "../redux/userSlice"
 import { setIds } from "../redux/friendsSlice"
 import { useHistory } from "react-router-dom";
 import { getFriendsIds } from '../api/twitter'
+import { useSelector, useDispatch } from "react-redux";
 
 export default function User() {
   const userName = useSelector((state) => state.userName.value)
@@ -23,20 +23,22 @@ export default function User() {
   }
 
   return (
-    <div className='OpenAs'>
-      <label>
-        <div className='MainText'>Play as</div>
-        <input
-          className='HandleInput'
-          placeholder="@twitterHandle"
-          type="text"
-          value={userName}
-          onChange={e => dispatch(setName(e.target.value.replace('@', '')))}
+    <div>
+      <TextField
+        onChange={e => dispatch(setName(e.target.value.replace('@', '')))}
+        placeholder="@twitterHandle"
+        value={userName}
+        variant="standard"
+        inputProps={{style: {fontSize: '20px'}}}
         />
-      </label>
-      <button onClick={() => { handleSubmit(userName) }}>
-        Submit
-      </button>
+      <Button 
+        disabled={userName === ''}
+        onClick={() => { handleSubmit(userName) }} 
+        size="big"
+        sx={{fontSize: '15px'}}
+        variant="contained" >
+        Play
+      </Button>
     </div>
   );
 }
