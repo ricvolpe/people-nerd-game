@@ -61,10 +61,10 @@ export default function TweetQuestion() {
 
   if (tweet) {
     if (answer) {
-      return <Tweet tweetId={tweet.id_str} />
+      return (<Tweet tweetId={tweet.id_str} />)
     }
     return (
-      <div>{tweet.text}</div>
+      <div className="Tweet">{tweet.text}</div>
     )
   } else {
     return null

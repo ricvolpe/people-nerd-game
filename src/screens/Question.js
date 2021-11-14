@@ -1,26 +1,26 @@
+import Answers from "../components/Answers";
+import Button from '@mui/material/Button';
+import TweetQuestion from "../components/Tweet";
 import { useParams } from "react-router-dom";
+import { resetScore } from '../redux/scoreSlice';
+import { Typography } from '@mui/material';
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react"
 import { useSpring, animated } from 'react-spring'
 import { useSelector, useDispatch } from "react-redux";
-import TweetQuestion from "../components/Tweet";
-import Answers from "../components/Answers";
-import { useHistory } from "react-router-dom";
-import { resetScore } from '../redux/scoreSlice';
-import { useEffect } from "react"
 
 export default function Question() {
     const { number } = useParams();
+    const answer = useSelector((state) => state.answer.value)
+    const score = useSelector((state) => state.score.value)
     const tweetAuthor = useSelector((state) => state.tweetAuthor.value)
     const userName = useSelector((state) => state.userName.value)
-    const score = useSelector((state) => state.score.value)
     const history = useHistory();
     const dispatch = useDispatch()
     
-    // trigger on component mount
     useEffect(() => {
-        // push back to home when got to question page from incorrect flow
-        if (userName === '') { history.push('/') }
-        // reset score if is first question (re-plays)
-        if ( number === '1' ) { dispatch(resetScore()) }
+        if (userName === '') { history.push('/') } // question page not from User
+        if ( number === '1' ) { dispatch(resetScore()) } // first question rests score
     });
 
     const titleStyle = useSpring({ 
@@ -38,18 +38,23 @@ export default function Question() {
     }
 
     return (
-        <div>
-            <animated.div style={titleStyle}>
-                <h2>Here's your question number {number} / 20 buddy!</h2>
-            </animated.div>
-            <TweetQuestion />
-            <Answers tweetAuthor={tweetAuthor} />
-            <button onClick={navigate}>
-                Next
-            </button>
-            <div>
-                Score: {score}
+        <animated.div style={titleStyle}>
+            <div className="questionOuterBox" >
+                <Typography>Question {number} / 20 </Typography>            
+                <TweetQuestion />
+                <Answers tweetAuthor={tweetAuthor} />
+                <div className="questionFooter" >
+                    <div>Score: {score}</div>
+                    <Button 
+                        disabled={answer === null}
+                        onClick={navigate}
+                        size="big"
+                        sx={{fontSize: '15px'}}
+                        variant="contained" >
+                        Next
+                    </Button>
+                </div>
             </div>
-        </div>
+        </animated.div>
     )
 }

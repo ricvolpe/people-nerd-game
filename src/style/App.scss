@@ -21,8 +21,39 @@ body {
   margin: auto;
 }
 
+.questionOuterBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 532px;
+  height: 500px;
+}
+
+.questionFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  flex-direction: row;
+  width: 100%;
+}
+
 .AnswerAvatar {
   border-radius: 50%;
+}
+
+.Tweet {
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(207, 217, 222);
+  border-radius: 12px;
+  border-style: solid;
+  border-width: 1px;
+  color: rgb(15, 20, 15);
+  font-size: 20px;
+  font-family: 'Arial';
+  padding: 16px;
+  margin-top: 60px;
+  position: fixed;
+  width: 532px;
 }
 
 .AnswerName {

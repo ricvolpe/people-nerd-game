@@ -60,7 +60,7 @@ export default function Answers(props) {
     const positionDecider = (uniqueUsers[0][0].id + tweetAuthor.id) % 4
     const fullAnswers = [...uniqueUsers.slice(0, positionDecider), [tweetAuthor], ...uniqueUsers.slice(positionDecider)]
     return (
-      <Flex className="grid" flexWrap='wrap' sx={{marginTop: '100px', justifyContent: 'center'}}>
+      <Flex className="grid" flexWrap='wrap' sx={{justifyContent: 'center'}}>
         {fullAnswers.map(u => {
           return (
             <Box 
@@ -68,7 +68,7 @@ export default function Answers(props) {
               width={'100px'} height={'100px'} 
               onClick={() => answerQuestion(u[0].id)}
               sx={{
-                backgroundColor: answer? (u[0].id === tweetAuthor.id? 'green': 'red') : 'white',
+                backgroundColor: answer? (u[0].id === tweetAuthor.id? 'green': 'red') : 'transparent',
                 justifyContent: 'center', 
                 cursor: 'pointer',
                 marginLeft: '30px'}}
@@ -81,7 +81,7 @@ export default function Answers(props) {
               {u[0].profile_image_url_https? <img alt={`Avatar of Twitter user ${u[0].screen_name}`} className='AnswerAvatar' src={u[0].profile_image_url_https.replace('_normal', '_bigger')} /> : null}
               </Box>
               <Box>
-                <p className='AnswerName'>{u[0].name}</p>  
+                <p className='AnswerName'>@{u[0].screen_name}</p>
               </Box>
             </Box>
           )
