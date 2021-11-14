@@ -24,8 +24,8 @@ export default function Question() {
     });
 
     const titleStyle = useSpring({ 
-        from: {marginTop: '-400px', opacity: 0}, 
-        to: {marginTop: '-200px', opacity: 1}, 
+        from: {marginTop: '-200px', opacity: 0}, 
+        to: {marginTop: '0px', opacity: 1}, 
         delay: 500 })
 
     const navigate = () => {
@@ -40,8 +40,10 @@ export default function Question() {
     return (
         <animated.div style={titleStyle}>
             <div className="questionOuterBox" >
-                <Typography>Question {number} / 20 </Typography>            
-                <TweetQuestion />
+                <Typography>Question {number} / 20 </Typography>
+                <div className="TweetWrapper">          
+                    <TweetQuestion />
+                </div>
                 <Answers tweetAuthor={tweetAuthor} />
                 <div className="questionFooter" >
                     <div>Score: {score}</div>

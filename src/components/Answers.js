@@ -68,21 +68,26 @@ export default function Answers(props) {
               width={'100px'} height={'100px'} 
               onClick={() => answerQuestion(u[0].id)}
               sx={{
-                backgroundColor: answer? (u[0].id === tweetAuthor.id? 'green': 'red') : 'transparent',
                 justifyContent: 'center', 
                 cursor: 'pointer',
                 marginLeft: '30px'}}
               >
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}>
-              {u[0].profile_image_url_https? <img alt={`Avatar of Twitter user ${u[0].screen_name}`} className='AnswerAvatar' src={u[0].profile_image_url_https.replace('_normal', '_bigger')} /> : null}
-              </Box>
-              <Box>
-                <p className='AnswerName'>@{u[0].screen_name}</p>
-              </Box>
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'}}
+                  >
+                    {u[0].profile_image_url_https?
+                    <img 
+                      alt={`Avatar of Twitter user ${u[0].screen_name}`}
+                      className={answer? (u[0].id === tweetAuthor.id? 'answerAvatar': 'answerAvatarFalse') : 'answerAvatar'}
+                      src={u[0].profile_image_url_https.replace('_normal', '_bigger')} 
+                      /> 
+                    : null}
+                </Box>
+                <Box>
+                  <p className='AnswerName'>@{u[0].screen_name}</p>
+                </Box>
             </Box>
           )
         })}

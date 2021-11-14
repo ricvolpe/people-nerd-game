@@ -23,22 +23,23 @@ body {
 
 .questionOuterBox {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
-  justify-content: space-between;
   width: 532px;
   height: 500px;
 }
 
 .questionFooter {
   display: flex;
+  justify-self: flex-end;
   justify-content: space-between;
   margin-top: 30px;
   flex-direction: row;
   width: 100%;
 }
 
-.AnswerAvatar {
-  border-radius: 50%;
+.TweetWrapper {
+  flex-grow: 1;
 }
 
 .Tweet {
@@ -51,11 +52,18 @@ body {
   font-size: 20px;
   font-family: 'Arial';
   padding: 16px;
-  margin-top: 60px;
-  position: fixed;
-  width: 532px;
+  margin-top: 20px;
 }
 
 .AnswerName {
   text-align: center;
+}
+
+.answerAvatar {
+  border-radius: 50%;
+}
+
+.answerAvatarFalse {
+  border-radius: 50%;
+  opacity: 30%;
 }
