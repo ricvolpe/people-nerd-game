@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSpring, animated } from 'react-spring'
 import { useSelector, useDispatch } from "react-redux";
-import Tweet from "../components/Tweet";
+import TweetQuestion from "../components/Tweet";
 import Answers from "../components/Answers";
 import { useHistory } from "react-router-dom";
 import { resetScore } from '../redux/scoreSlice';
@@ -42,7 +42,7 @@ export default function Question() {
             <animated.div style={titleStyle}>
                 <h2>Here's your question number {number} / 20 buddy!</h2>
             </animated.div>
-            <Tweet />
+            <TweetQuestion />
             <Answers tweetAuthor={tweetAuthor} />
             <button onClick={navigate}>
                 Next

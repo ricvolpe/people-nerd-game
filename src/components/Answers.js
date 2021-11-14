@@ -1,6 +1,7 @@
 import { getUser } from '../api/twitter'
 import { increaseScore } from '../redux/scoreSlice';
 import { setAnswerIDs } from "../redux/answerOptionsSlice"
+import { giveAnswer, resetAnswer } from "../redux/answerSlice"
 import { useHistory } from "react-router-dom";
 import { Box, Flex } from 'reflexbox'
 import { useEffect, useState } from "react"
@@ -10,8 +11,8 @@ export default function Answers(props) {
   const history = useHistory();
   const dispatch = useDispatch()
   const friendsIds = useSelector((state) => state.friendsIds.value)
+  const answer = useSelector((state) => state.answer.value)
   const [users, setUsers] = useState(null)
-  const [answer, giveAnswer] = useState(null)
 
   useEffect(() => {
     async function getAnswers(friendsIds) {
@@ -39,15 +40,15 @@ export default function Answers(props) {
       setUsers(answerUsers)
     }
     setUsers([])
-    giveAnswer(null)
+    dispatch(resetAnswer())
     getAnswers(getAnswers(friendsIds))
   }, [friendsIds, dispatch, history.location])
   
   const { tweetAuthor } = props;
 
   const answerQuestion = (selectedUserID) => {
-    if (answer === null) {
-      giveAnswer(selectedUserID)
+    if (!answer) {
+      dispatch(giveAnswer(selectedUserID))
       if (selectedUserID === tweetAuthor.id) {
         dispatch(increaseScore(1))
       } 
@@ -67,7 +68,7 @@ export default function Answers(props) {
               width={'100px'} height={'100px'} 
               onClick={() => answerQuestion(u[0].id)}
               sx={{
-                backgroundColor: answer !== null? (u[0].id === tweetAuthor.id? 'green': 'red') : 'white',
+                backgroundColor: answer? (u[0].id === tweetAuthor.id? 'green': 'red') : 'white',
                 justifyContent: 'center', 
                 cursor: 'pointer',
                 marginLeft: '30px'}}
