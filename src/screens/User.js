@@ -22,10 +22,17 @@ export default function User() {
     }
   }
 
+  const handleKeyPress = (keyPress) => {
+    if (keyPress.key === 'Enter') {
+      handleSubmit(userName)
+    }
+  }
+
   return (
     <div>
       <TextField
         onChange={e => dispatch(setName(e.target.value.replace('@', '')))}
+        onKeyDown={handleKeyPress}
         placeholder="@twitterHandle"
         value={userName}
         variant="standard"

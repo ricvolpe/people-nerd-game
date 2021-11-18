@@ -63,14 +63,14 @@ export default function Answers(props) {
       <Flex className="grid" flexWrap='wrap' sx={{justifyContent: 'center'}}>
         {fullAnswers.map(u => {
           return (
-            <Box 
+            <Box
               key={u[0].id}
-              width={'100px'} height={'100px'} 
+              width={'128px'} height={'120px'} 
               onClick={() => answerQuestion(u[0].id)}
               sx={{
                 justifyContent: 'center', 
                 cursor: 'pointer',
-                marginLeft: '30px'}}
+                marginLeft: '4px'}}
               >
                 <Box sx={{
                   display: 'flex',

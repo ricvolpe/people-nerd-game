@@ -5,35 +5,13 @@ import { Tweet } from 'react-twitter-widgets'
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 
-const SECONDS_IN_A_DAY = 86400000
-const LAST_30_DAYS = new Date(Date.now() - 30 * SECONDS_IN_A_DAY)
-
-function getPossibleTweetAuthorID(friendsIds) {
-  return friendsIds[Math.floor(Math.random() * friendsIds.length)]
-}
-
-function getPotentialTweet(timeline) {
-  if (timeline.filter(t => Date.parse(t.created_at) > LAST_30_DAYS).length === 0) {
-    return null
-  }
-  const repliesFilteredTL = timeline.filter(t => t.in_reply_to_screen_name === null)
-  if (repliesFilteredTL.length === 0) {
-    return null
-  }
-  const entitiesFilteredTL = repliesFilteredTL.filter(t => (t.entities.urls?.length === 0 && 
-    (t.entities.media?.length === 0  || t.entities.media === undefined)))
-  if (entitiesFilteredTL.length === 0) {
-    return null
-  }
-  return entitiesFilteredTL[Math.floor(Math.random() * entitiesFilteredTL.length)]
-}
-
 export default function TweetQuestion() {
   const history = useHistory();
   const dispatch = useDispatch()
   const friendsIds = useSelector((state) => state.friendsIds.value)
   const answer = useSelector((state) => state.answer.value)
   const [tweet, setTweet] = useState(null)
+  const [previousQuestions, setPreviousQuestions] = useState([])
 
   useEffect(() => {
     async function getTimeline(friendsIds) {
@@ -43,11 +21,12 @@ export default function TweetQuestion() {
       const possibleId = getPossibleTweetAuthorID(friendsIds)
       const resp = await getFriendTimeline(possibleId)
       if (resp['statusCode'] === 200) {
-        const tweet = getPotentialTweet(resp.data)
+        const tweet = getPotentialTweet(resp.data, previousQuestions)
         if (tweet === null) {
           getTimeline(friendsIds)
         } else {
           setTweet(tweet)
+          setPreviousQuestions(p => [...p, tweet.id])
           dispatch(setTweetAuthor(resp.data[0]?.user))
         }
       }
@@ -59,14 +38,45 @@ export default function TweetQuestion() {
     getTimeline(friendsIds)
   }, [friendsIds, dispatch, history.location])
 
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString)
+    return dateObject.toLocaleDateString("en-US", {day: 'numeric', month: 'long', year: 'numeric'})
+  }
+
   if (tweet) {
     if (answer) {
       return (<Tweet tweetId={tweet.id_str} />)
     }
     return (
-      <div className="Tweet">{tweet.text}</div>
+      <div className="Tweet">
+        <div dangerouslySetInnerHTML={{__html: tweet.text}}></div>
+        <div className="TweetDate">{formatDate(tweet.created_at)}</div>  
+      </div>
     )
   } else {
     return null
   }
+}
+
+const SECONDS_IN_A_DAY = 86400000
+const LAST_60_DAYS = new Date(Date.now() - 60 * SECONDS_IN_A_DAY)
+
+function getPossibleTweetAuthorID(friendsIds) {
+  return friendsIds[Math.floor(Math.random() * friendsIds.length)]
+}
+
+function getPotentialTweet(timeline, previousTweets) {
+  if (timeline[0].created_at > LAST_60_DAYS) { return null }
+
+  const noRepliesTL = timeline.filter(t => t.in_reply_to_screen_name === null)
+  if (noRepliesTL.length === 0) { return null }
+
+  const textOnlyTL = noRepliesTL.filter(t => (t.entities.urls?.length === 0 && 
+    (t.entities.media?.length === 0  || t.entities.media === undefined)))
+  if (textOnlyTL.length === 0) { return null }
+  
+  const noDuplicatesTL = textOnlyTL.filter(t => !previousTweets.includes(t.id))
+  if (noDuplicatesTL.length === 0) { return null }
+
+  return noDuplicatesTL[Math.floor(Math.random() * noDuplicatesTL.length)]
 }

@@ -1,11 +1,22 @@
+import Button from '@mui/material/Button';
 import GoogleKeys from "../auth/people-nerd-game-888ba0885f73.json"
-import { useSelector } from "react-redux";
 import { GoogleSpreadsheet } from "google-spreadsheet"
-import { useEffect, useState } from "react"
+import { resetScore } from '../redux/scoreSlice';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { Typography } from '@mui/material';
+import Paper from '@mui/material/Paper';
 import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Scoreboard() {
     const history = useHistory();
+    const dispatch = useDispatch()
     const userName = useSelector((state) => state.userName.value)
     const score = useSelector((state) => state.score.value)
     const [scoreBoard, setScoreBoard] = useState(null)
@@ -29,42 +40,61 @@ export default function Scoreboard() {
         }
         connectToBackend()
         return () => { isMounted = false }
-    })
+    }, [])
 
     const playAgain = () => {
+        dispatch(resetScore())
         history.push('question/1')
+    }
+
+    const formatScore = (scoreValue) => {
+        return Math.round(scoreValue * 100) / 100
     }
 
     return (
         <div>
-            <h2>You scored {score}/20!</h2>
-            <table>
-                <thead>
-                    {scoreBoard?
-                            <tr>
-                                <th>User</th>
-                                <th>Mean score</th>
-                                <th>Max score</th>
-                                <th>Attempts</th>
-                            </tr>
-                    :null}
-                </thead>
-                <tbody>
-                    {scoreBoard?
-                    scoreBoard.slice(1).map(row => {
-                        return (
-                            <tr key={row.Username}>
-                                <td>{row.Username}</td>
-                                <td>{row['AVERAGE of Score']}</td>
-                                <td>{row['MAX of Score']}</td>
-                                <td>{row['COUNT of Score']}</td>
-                            </tr>
-                        )
-                    })
-                    :null}
-                </tbody>
-            </table>
-            <button onClick={playAgain}>Play again!</button>
+            <Typography align='center' variant="h4" sx={{marginBottom: '10px'}}>You scored {score}/20!</Typography>
+            <Typography variant="h5" sx={{marginBottom: '10px'}}>Scoreboard</Typography>
+            {scoreBoard?
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">  
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Player</TableCell>
+                            <TableCell align="right">Avg. score</TableCell>
+                            <TableCell align="right">Max score</TableCell>
+                            <TableCell align="right">Attempts</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {scoreBoard?
+                        scoreBoard.slice(1).map(row => {
+                            return (
+                                <TableRow
+                                    key={row.Username}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                    <TableCell component="th" scope="row">{row.Username}</TableCell>
+                                    <TableCell align="right">{formatScore(row['AVERAGE of Score'])}</TableCell>
+                                    <TableCell align="right">{row['MAX of Score']}</TableCell>
+                                    <TableCell align="right">{row['COUNT of Score']}</TableCell>
+                                </TableRow>
+                            )
+                        })
+                        :null}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            : null}
+             <div className="scoreboardFooted" >
+            <Button 
+                onClick={playAgain}
+                size="big"
+                sx={{fontSize: '15px', marginTop: '10px'}}
+                variant="contained" >
+                Play again
+            </Button>
+            </div>
         </div>
     )
 }
