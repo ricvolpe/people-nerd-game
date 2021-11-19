@@ -1,4 +1,4 @@
-const API_SERVER = 'http://localhost:5000/api'
+const API_SERVER = 'https://people.volpato.io/api'
 
 export async function getFriendsIds(screenName) {
     const response = await fetch(`${API_SERVER}/friends/${screenName}`)

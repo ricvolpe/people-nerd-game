@@ -4,8 +4,12 @@ import { theme } from './style/theme'
 import { ThemeProvider } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 import './style/App.scss';
+import React from 'react';
 
 function App() {
+  React.useEffect(() => {
+    document.title = "Who tweeted that?"
+  })
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

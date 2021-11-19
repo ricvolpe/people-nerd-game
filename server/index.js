@@ -5,7 +5,7 @@ const numCPUs = require('os').cpus().length;
 const cors = require('cors');
 const twitterApi = require('./twitterApiHelper')
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 62049;
 
 // Multi-process to utilize all CPU cores.
 if (cluster.isMaster) {
@@ -27,7 +27,7 @@ if (cluster.isMaster) {
   }));
 
   // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+  app.use(express.static(path.join(__dirname, '../build')));
 
   app.get('/api/friends/:screen_name', async function (req, res) {
     res.set('Content-Type', 'application/json');
@@ -63,8 +63,8 @@ if (cluster.isMaster) {
   });
 
   // All remaining requests return the React app, so it can handle routing.
-  app.get('*', function(request, response) {
-    response.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'));
   });
 
   app.listen(PORT, function () {
