@@ -45,7 +45,7 @@ export default function TweetQuestion() {
 
   if (tweet) {
     if (answer) {
-      return (<Tweet tweetId={tweet.id_str} />)
+      return (<div className='embeddedTweet'><Tweet tweetId={tweet.id_str} /></div>)
     }
     return (
       <div className="Tweet">
