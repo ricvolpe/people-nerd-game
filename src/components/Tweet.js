@@ -1,4 +1,5 @@
 import { getFriendTimeline } from '../api/twitter'
+import loading from '../style/load.gif'
 import { setTweetAuthor } from "../redux/tweetAuthorSlice"
 import { useHistory } from "react-router-dom";
 import { Tweet } from 'react-twitter-widgets'
@@ -35,6 +36,7 @@ export default function TweetQuestion() {
         getTimeline(friendsIds)
       }
     }
+    setTweet(null)
     getTimeline(friendsIds)
   }, [friendsIds, dispatch, history.location])
 
@@ -54,7 +56,7 @@ export default function TweetQuestion() {
       </div>
     )
   } else {
-    return null
+    return <div className='loadingTweet'><img className='loading' src={loading} /></div>
   }
 }
 

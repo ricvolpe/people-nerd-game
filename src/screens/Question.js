@@ -39,7 +39,7 @@ export default function Question() {
 
     return (
         <animated.div style={titleStyle}>
-            <Box className="questionOuterBox" sx={{width: Math.min(width - 32, 700)}} >
+            <Box className="questionOuterBox" sx={{width: Math.min(width - 32, 548)}} >
                 <Typography sx={{fontSize: '24px'}}>Question {number} / 20</Typography>
                 <div className="TweetWrapper">          
                     <TweetQuestion />
