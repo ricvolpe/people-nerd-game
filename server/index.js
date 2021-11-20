@@ -11,8 +11,8 @@ const twitterApi = require('./twitterApiHelper')
 
 const PORT = process.env.PORT || 62049;
 let TMP_AUTH_TOKEN_SECRET
-let USER_OAUTH_TOKEN
-let USER_OAUTH_TOKEN_SECRET
+let USER_OAUTH_TOKEN = keys.access_token
+let USER_OAUTH_TOKEN_SECRET = keys.access_token_secret
 
 // Multi-process to utilize all CPU cores.
 if (cluster.isMaster) {

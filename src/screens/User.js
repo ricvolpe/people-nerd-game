@@ -36,13 +36,13 @@ export default function User() {
         placeholder="@twitterHandle"
         value={userName}
         variant="standard"
-        inputProps={{style: {fontSize: '20px'}}}
+        inputProps={{style: {fontSize: '32px'}}}
         />
       <Button 
         disabled={userName === ''}
         onClick={() => { handleSubmit(userName) }} 
         size="big"
-        sx={{fontSize: '15px'}}
+        sx={{fontSize: '24px'}}
         variant="contained" >
         Play
       </Button>

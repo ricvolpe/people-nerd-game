@@ -4,21 +4,21 @@ export const theme = createTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#1bdaaa',
-      contrastText: '#426484'
+      main: '#FC814A',
+      contrastText: '#151515'
     },
     secondary: {
       main: '#f50057',
     },
     background: {
-        default: '#FCF9BD',
+        default: '#cfeeed',
         paper: '#FBF5F3',
     },
     text: {
-        primary: '#426484',
+        primary: '#151515',
     },
   },
   typography: {
-    fontFamily: 'Zen Kaku Gothic New',
+    fontFamily: 'Gochi Hand',
   },
 });
