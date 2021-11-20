@@ -1,6 +1,4 @@
-import process from "process";
-
-const API_SERVER = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')? 'http://localhost:62049/api' : 'https://people.volpato.io/api'
+const API_SERVER = (process.env.NODE_ENV === 'development')? 'http://localhost:62049/api' : 'https://people.volpato.io/api'
 
 export async function getFriendsIds(screenName) {
     const response = await fetch(`${API_SERVER}/friends/${screenName}`)
