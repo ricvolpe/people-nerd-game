@@ -37,18 +37,18 @@ export default function Question() {
     return (
         <animated.div style={titleStyle}>
             <div className="questionOuterBox" >
-                <Typography>Question {number} / 20 </Typography>
+                <Typography sx={{fontSize: '24px'}}>Question {number} / 20</Typography>
                 <div className="TweetWrapper">          
                     <TweetQuestion />
                 </div>
                 <Answers tweetAuthor={tweetAuthor} />
                 <div className="questionFooter" >
-                    <div>Score: {score}</div>
+                    <Typography sx={{fontSize: '24px'}}>Score: {score} / 20</Typography>
                     <Button 
                         disabled={answer === null}
                         onClick={navigate}
                         size="big"
-                        sx={{fontSize: '15px'}}
+                        sx={{fontSize: '18px'}}
                         variant="contained" >
                         Next
                     </Button>

@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
 import GoogleKeys from "../auth/people-nerd-game-888ba0885f73.json"
 import { GoogleSpreadsheet } from "google-spreadsheet"
+import loading from '../style/load.gif'
 import { resetScore } from '../redux/scoreSlice';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -52,45 +53,43 @@ export default function Scoreboard() {
     }
 
     return (
-        <div>
+        <div className='scoreboardOuter'>
             <Typography align='center' variant="h4" sx={{marginBottom: '10px'}}>You scored {score}/20!</Typography>
-            <Typography variant="h5" sx={{marginBottom: '10px'}}>Scoreboard</Typography>
+            <Typography variant="h5" sx={{marginBottom: '10px', fontSize: '24px'}}>Scoreboard</Typography>
             {scoreBoard?
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">  
                     <TableHead>
                         <TableRow>
-                            <TableCell>Player</TableCell>
-                            <TableCell align="right">Avg. score</TableCell>
-                            <TableCell align="right">Max score</TableCell>
-                            <TableCell align="right">Attempts</TableCell>
+                            <TableCell sx={{fontSize: '24px'}}>Player</TableCell>
+                            <TableCell sx={{fontSize: '24px'}} align="right">Avg. score</TableCell>
+                            <TableCell sx={{fontSize: '24px'}} align="right">Max score</TableCell>
+                            <TableCell sx={{fontSize: '24px'}} align="right">Attempts</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {scoreBoard?
-                        scoreBoard.slice(1).map(row => {
+                        {scoreBoard.slice(1).map(row => {
                             return (
                                 <TableRow
                                     key={row.Username}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 }, fontSize: '24px' }}
                                     >
-                                    <TableCell component="th" scope="row">{row.Username}</TableCell>
-                                    <TableCell align="right">{formatScore(row['AVERAGE of Score'])}</TableCell>
-                                    <TableCell align="right">{row['MAX of Score']}</TableCell>
-                                    <TableCell align="right">{row['COUNT of Score']}</TableCell>
+                                    <TableCell sx={{fontSize: '20px'}} component="th" scope="row"><a href={`https://twitter.com/${row.Username}`}>@{row.Username}</a></TableCell>
+                                    <TableCell sx={{fontSize: '20px'}} align="right">{formatScore(row['AVERAGE of Score'])}</TableCell>
+                                    <TableCell sx={{fontSize: '20px'}} align="right">{row['MAX of Score']}</TableCell>
+                                    <TableCell sx={{fontSize: '20px'}} align="right">{row['COUNT of Score']}</TableCell>
                                 </TableRow>
                             )
-                        })
-                        :null}
+                        })}
                     </TableBody>
                 </Table>
             </TableContainer>
-            : null}
+            : <img className='scoreboardLoading' src={loading} /> }
              <div className="scoreboardFooted" >
             <Button 
                 onClick={playAgain}
                 size="big"
-                sx={{fontSize: '15px', marginTop: '10px'}}
+                sx={{fontSize: '18px', marginTop: '10px'}}
                 variant="contained" >
                 Play again
             </Button>

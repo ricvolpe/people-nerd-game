@@ -94,3 +94,13 @@ body {
   flex-direction: row;
   width: 100%;
 }
+
+.scoreboardOuter {
+  min-width: 650px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scoreboardLoading {
+  margin: auto
+}
