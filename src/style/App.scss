@@ -19,13 +19,21 @@ body {
 
 .App-screen {
   margin: auto;
+  padding: 16px;
+}
+
+.userOuter {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
 }
 
 .questionOuterBox {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  width: 532px;
+  width: 100%;
   height: 500px;
 }
 
@@ -40,6 +48,7 @@ body {
 
 .TweetWrapper {
   flex-grow: 1;
+  margin-bottom: 16px;
 }
 
 .Tweet {

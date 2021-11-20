@@ -1,15 +1,18 @@
 import Answers from "../components/Answers";
+import { Box } from 'reflexbox'
 import Button from '@mui/material/Button';
 import TweetQuestion from "../components/Tweet";
 import { useParams } from "react-router-dom";
 import { Typography } from '@mui/material';
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react"
+import { useWindowDimensions } from '../hooks/useWindowDimensions'
 import { useSpring, animated } from 'react-spring'
 import { useSelector } from "react-redux";
 
 export default function Question() {
     const { number } = useParams();
+    const { width } = useWindowDimensions();
     const answer = useSelector((state) => state.answer.value)
     const score = useSelector((state) => state.score.value)
     const tweetAuthor = useSelector((state) => state.tweetAuthor.value)
@@ -36,7 +39,7 @@ export default function Question() {
 
     return (
         <animated.div style={titleStyle}>
-            <div className="questionOuterBox" >
+            <Box className="questionOuterBox" sx={{width: Math.min(width - 32, 700)}} >
                 <Typography sx={{fontSize: '24px'}}>Question {number} / 20</Typography>
                 <div className="TweetWrapper">          
                     <TweetQuestion />
@@ -53,7 +56,7 @@ export default function Question() {
                         Next
                     </Button>
                 </div>
-            </div>
+            </Box>
         </animated.div>
     )
 }

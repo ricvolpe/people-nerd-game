@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import { Box } from 'reflexbox'
 import GoogleKeys from "../auth/people-nerd-game-888ba0885f73.json"
 import { GoogleSpreadsheet } from "google-spreadsheet"
 import loading from '../style/load.gif'
@@ -12,12 +13,14 @@ import TableRow from '@mui/material/TableRow';
 import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { useHistory } from "react-router-dom";
+import { useWindowDimensions } from '../hooks/useWindowDimensions'
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Scoreboard() {
     const history = useHistory();
     const dispatch = useDispatch()
+    const { width } = useWindowDimensions();
     const userName = useSelector((state) => state.userName.value)
     const score = useSelector((state) => state.score.value)
     const [scoreBoard, setScoreBoard] = useState(null)
@@ -53,12 +56,12 @@ export default function Scoreboard() {
     }
 
     return (
-        <div className='scoreboardOuter'>
+        <Box className='scoreboardOuter' sx={{width: Math.min(width - 32, 650)}}>
             <Typography align='center' variant="h4" sx={{marginBottom: '10px'}}>You scored {score}/20!</Typography>
             <Typography variant="h5" sx={{marginBottom: '10px', fontSize: '24px'}}>Scoreboard</Typography>
             {scoreBoard?
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">  
+                <Table sx={{ width: Math.min(width - 32, 650) }} size="small" aria-label="a dense table">  
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{fontSize: '24px'}}>Player</TableCell>
@@ -94,6 +97,6 @@ export default function Scoreboard() {
                 Play again
             </Button>
             </div>
-        </div>
+        </Box>
     )
 }
