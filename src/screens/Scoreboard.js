@@ -87,7 +87,7 @@ export default function Scoreboard() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            : <img className='loading' src={loading} /> }
+            : <img alt='loading icon' className='loading' src={loading} /> }
              <div className="scoreboardFooted" >
             <Button 
                 onClick={playAgain}

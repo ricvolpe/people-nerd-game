@@ -56,7 +56,7 @@ export default function TweetQuestion() {
       </div>
     )
   } else {
-    return <div className='loadingTweet'><img className='loading' src={loading} /></div>
+    return <div className='loadingTweet'><img alt='loading icon' className='loading' src={loading} /></div>
   }
 }
 
