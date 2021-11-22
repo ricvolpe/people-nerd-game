@@ -57,7 +57,7 @@ export default function Scoreboard() {
 
     return (
         <Box className='scoreboardOuter' sx={{width: Math.min(width - 32, 650)}}>
-            <Typography align='center' variant="h4" sx={{marginBottom: '10px'}}>You scored {score}/20!</Typography>
+            <Typography align='center' variant="h4" sx={{marginBottom: '10px'}}>You scored {score}/10!</Typography>
             <Typography variant="h5" sx={{marginBottom: '10px', fontSize: '24px'}}>Scoreboard</Typography>
             {scoreBoard?
             <TableContainer component={Paper}>
@@ -71,13 +71,13 @@ export default function Scoreboard() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {scoreBoard.slice(1).map(row => {
+                        {scoreBoard.filter(entry => entry.Username !== '').map(row => {
                             return (
                                 <TableRow
                                     key={row.Username}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 }, fontSize: '24px' }}
                                     >
-                                    <TableCell sx={{fontSize: '20px'}} component="th" scope="row"><a href={`https://twitter.com/${row.Username}`}>@{row.Username}</a></TableCell>
+                                    <TableCell sx={{fontSize: '20px'}} component="th" scope="row"><a href={`https://twitter.com/${row.Username}`} target="_blank">@{row.Username}</a></TableCell>
                                     <TableCell sx={{fontSize: '20px'}} align="right">{formatScore(row['AVERAGE of Score'])}</TableCell>
                                     <TableCell sx={{fontSize: '20px'}} align="right">{row['MAX of Score']}</TableCell>
                                     <TableCell sx={{fontSize: '20px'}} align="right">{row['COUNT of Score']}</TableCell>

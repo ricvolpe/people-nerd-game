@@ -66,16 +66,17 @@ export default function Answers(props) {
             <Box
               key={u[0].id}
               width={'128px'} height={'120px'} 
-              onClick={() => answerQuestion(u[0].id)}
               sx={{
                 justifyContent: 'center', 
                 cursor: 'pointer',
                 marginLeft: '4px'}}
               >
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'}}
+                <Box 
+                  onClick={() => answerQuestion(u[0].id)}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'}}
                   >
                     {u[0].profile_image_url_https?
                     <img 
@@ -86,7 +87,7 @@ export default function Answers(props) {
                     : null}
                 </Box>
                 <Box>
-                  <p className='AnswerName'>@{u[0].screen_name}</p>
+                  <p className='AnswerName'><a href={`https://twitter.com/${u[0].screen_name}`} target="_blank">@{u[0].screen_name}</a></p>
                 </Box>
             </Box>
           )

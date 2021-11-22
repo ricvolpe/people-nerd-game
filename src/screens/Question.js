@@ -30,7 +30,7 @@ export default function Question() {
 
     const navigate = () => {
         const pageNumberAsInt = parseInt(number)
-        if (pageNumberAsInt >= 20) {
+        if (pageNumberAsInt >= 10) {
             history.push('/scoreboard')
         } else {
             history.push(`/question/${pageNumberAsInt+1}`)
@@ -40,13 +40,13 @@ export default function Question() {
     return (
         <animated.div style={titleStyle}>
             <Box className="questionOuterBox" sx={{width: Math.min(width - 32, 548)}} >
-                <Typography sx={{fontSize: '24px'}}>Question {number} / 20</Typography>
+                <Typography sx={{fontSize: '24px'}}>Question {number} / 10</Typography>
                 <div className="TweetWrapper">          
                     <TweetQuestion />
                 </div>
                 <Answers tweetAuthor={tweetAuthor} />
                 <div className="questionFooter" >
-                    <Typography sx={{fontSize: '24px'}}>Score: {score} / 20</Typography>
+                    <Typography sx={{fontSize: '24px'}}>Score: {score} / 10</Typography>
                     <Button 
                         disabled={answer === null}
                         onClick={navigate}
