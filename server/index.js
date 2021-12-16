@@ -8,6 +8,7 @@ const path = require('path');
 const queryString = require('query-string')
 const request = require('request-promise-native')
 const twitterApi = require('./twitterApiHelper')
+const twitterApiV2 = require('./twitterApiHelperV2')
 
 const PORT = process.env.PORT || 62049;
 let TMP_AUTH_TOKEN_SECRET
@@ -80,12 +81,13 @@ if (cluster.isMaster) {
     res.set('Content-Type', 'application/json');
     const screenName = req.params.screen_name
     try {
-      const { statusCode, data } = await twitterApi.getFriendsByScreenName(
+      const { statusCode, data } = await twitterApiV2.getFriendsByScreenName(
         screenName,
         USER_OAUTH_TOKEN,
         USER_OAUTH_TOKEN_SECRET)
       res.json({'statusCode': statusCode, 'data': data})
     } catch(error) {
+      console.log(error)
       res.send(error)
     }
   });

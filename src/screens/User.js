@@ -15,8 +15,9 @@ export default function User() {
 
   async function handleSubmit(screenName) {
     const resp = await getFriendsIds(screenName)
+    console.log(resp)
     if (resp['statusCode'] === 200) {
-      dispatch(setIds(resp.data.ids))
+      dispatch(setIds(resp.data))
       history.push('question/1')
     }
     else {
